@@ -30,6 +30,7 @@ class PlanetsArrangementController:
                                   random.randint(min_radius, max_radius),
                                   (random.randint(margin, max_width - margin), random.randint(margin, max_height - margin)))
 
+
             list_of_planets.append(next_planet)
 
         return list_of_planets
