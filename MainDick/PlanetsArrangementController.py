@@ -57,6 +57,7 @@ class PlanetsArrangementController:
 
         return list_of_planets
 
+
     def acceptable_coordinates(self, list_of_coords, curr_planet_coords, min_distance):
 
         curr_x, curr_y = curr_planet_coords
