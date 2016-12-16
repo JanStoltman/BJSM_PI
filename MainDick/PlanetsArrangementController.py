@@ -1,5 +1,6 @@
 from MainDick.SpaceObjects.Planet import Planet
 import random
+import math
 
 class PlanetsArrangementController:
 
@@ -17,21 +18,37 @@ class PlanetsArrangementController:
                                   random.choice(colors_list),
                                   random.randint(min_mass, max_mass),
                                   random.randint(min_radius, max_radius),
-                                  random.randint(margin, max_width - margin), random.randint(margin, max_height - margin))
+                                  (random.randint(margin, max_width - margin), random.randint(margin, max_height - margin)))
 
             list_of_planets.append(first_planet)
 
         for i in range(1, number_of_planets):
             list_of_coords.append(list_of_planets[-1].coordinates)
 
+            next_planet_coords = (random.randint(margin, max_width - margin), random.randint(margin, max_height - margin))
+            while not self.acceptable_coordinates(list_of_coords, next_planet_coords, minimal_distance):
+                next_planet_coords = (random.randint(margin, max_width - margin), random.randint(margin, max_height - margin))
+
             next_planet = Planet('planet' + str(i),
                                   random.choice(colors_list),
                                   random.randint(min_mass, max_mass),
                                   random.randint(min_radius, max_radius),
-                                  random.randint(margin, max_width - margin), random.randint(margin, max_height - margin))
+                                  (next_planet_coords[0], next_planet_coords[1]))
 
 
             list_of_planets.append(next_planet)
 
         return list_of_planets
+
+
+    def acceptable_coordinates(self, list_of_coords, curr_planet_coords, min_distance):
+
+        curr_x, curr_y = curr_planet_coords
+
+        for prev_x, prev_y in list_of_coords:
+            if math.sqrt((curr_x - prev_x) ** 2 + (curr_y - prev_y) ** 2) < min_distance:
+                return False
+
+        return True
+
 
