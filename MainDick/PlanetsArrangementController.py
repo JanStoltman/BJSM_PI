@@ -25,7 +25,7 @@ class PlanetsArrangementController:
                                   first_planet_radius,
                                   (random.randint(margin + first_planet_radius, max_width - margin - first_planet_radius),
                                    random.randint(margin + first_planet_radius, max_height - margin - first_planet_radius)),
-                                  image=random.choice(files_list)))
+                                  image=random.choice(files_list))
 
             list_of_planets.append(first_planet)
 
@@ -40,7 +40,8 @@ class PlanetsArrangementController:
 
             while not self.acceptable_coordinates(list_of_coords, next_planet_coords, minimal_distance):
                 next_planet_coords = (
-                    random.randint(margin, max_width - margin), random.randint(margin, max_height - margin))
+                    random.randint(margin + next_planet_radius, max_width - margin - next_planet_radius),
+                    random.randint(margin + next_planet_radius, max_height - margin - next_planet_radius))
                 loop_guardian += 1
                 if loop_guardian >= 100:
                     return list_of_planets
@@ -50,7 +51,7 @@ class PlanetsArrangementController:
                                   random.randint(min_mass, max_mass),
                                   next_planet_radius,
                                   (next_planet_coords[0], next_planet_coords[1]),
-                                  image = random.choice(files_list)))
+                                  image = random.choice(files_list))
 
 
             list_of_planets.append(next_planet)
