@@ -26,8 +26,13 @@ class PlanetsArrangementController:
             list_of_coords.append(list_of_planets[-1].coordinates)
 
             next_planet_coords = (random.randint(margin, max_width - margin), random.randint(margin, max_height - margin))
+            loop_guardian = 0
+
             while not self.acceptable_coordinates(list_of_coords, next_planet_coords, minimal_distance):
                 next_planet_coords = (random.randint(margin, max_width - margin), random.randint(margin, max_height - margin))
+                loop_guardian += 1
+                if loop_guardian >= 100:
+                    return list_of_planets
 
             next_planet = Planet('planet' + str(i),
                                   random.choice(colors_list),
