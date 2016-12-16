@@ -17,7 +17,7 @@ class PlanetsArrangementController:
                                   random.choice(colors_list),
                                   random.randint(min_mass, max_mass),
                                   random.randint(min_radius, max_radius),
-                                  (random.randint(margin, max_width - margin), random.randint(margin, max_height - margin)))
+                                  random.randint(margin, max_width - margin), random.randint(margin, max_height - margin))
 
             list_of_planets.append(first_planet)
 
@@ -28,7 +28,7 @@ class PlanetsArrangementController:
                                   random.choice(colors_list),
                                   random.randint(min_mass, max_mass),
                                   random.randint(min_radius, max_radius),
-                                  (random.randint(margin, max_width - margin), random.randint(margin, max_height - margin)))
+                                  random.randint(margin, max_width - margin), random.randint(margin, max_height - margin))
 
 
             list_of_planets.append(next_planet)
