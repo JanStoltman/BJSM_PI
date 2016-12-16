@@ -10,6 +10,7 @@ class PlanetsArrangementController:
             raise ValueError('Too big margin value')
 
         list_of_planets = []
+        list_of_coords = []
 
         if number_of_planets >= 1:
             first_planet = Planet('planet0',
@@ -21,6 +22,8 @@ class PlanetsArrangementController:
             list_of_planets.append(first_planet)
 
         for i in range(1, number_of_planets):
+            list_of_coords.append(list_of_planets[-1].coordinates)
+
             next_planet = Planet('planet' + str(i),
                                   random.choice(colors_list),
                                   random.randint(min_mass, max_mass),

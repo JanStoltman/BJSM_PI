@@ -5,4 +5,4 @@ class Planet:
         self.color = color
         self.mass = mass
         self.radius = radius
-        self.coordinates = x, y
+        self.coordinates = (x, y)
