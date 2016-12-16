@@ -4,8 +4,8 @@ import math
 
 
 class PlanetsArrangementController:
-    def arrange_planets(self, number_of_planets,  minimal_distance,
-                        colors_list, files_list,
+    def arrange_planets(self, number_of_planets, minimal_distance,
+                        files_list,
                         min_mass, max_mass,
                         min_radius, max_radius,
                         max_width, max_height,
@@ -20,11 +20,12 @@ class PlanetsArrangementController:
         if number_of_planets >= 1:
             first_planet_radius = random.randint(min_radius, max_radius)
             first_planet = Planet('planet0',
-                                  random.choice(colors_list),
                                   random.randint(min_mass, max_mass),
                                   first_planet_radius,
-                                  (random.randint(margin + first_planet_radius, max_width - margin - first_planet_radius),
-                                   random.randint(margin + first_planet_radius, max_height - margin - first_planet_radius)),
+                                  (random.randint(margin + first_planet_radius,
+                                                  max_width - margin - first_planet_radius),
+                                   random.randint(margin + first_planet_radius,
+                                                  max_height - margin - first_planet_radius)),
                                   image=random.choice(files_list))
 
             list_of_planets.append(first_planet)
@@ -47,17 +48,14 @@ class PlanetsArrangementController:
                     return list_of_planets
 
             next_planet = Planet('planet' + str(i),
-                                  random.choice(colors_list),
-                                  random.randint(min_mass, max_mass),
-                                  next_planet_radius,
-                                  (next_planet_coords[0], next_planet_coords[1]),
-                                  image = random.choice(files_list))
-
+                                 random.randint(min_mass, max_mass),
+                                 next_planet_radius,
+                                 (next_planet_coords[0], next_planet_coords[1]),
+                                 image=random.choice(files_list))
 
             list_of_planets.append(next_planet)
 
         return list_of_planets
-
 
     def acceptable_coordinates(self, list_of_coords, curr_planet_coords, min_distance):
 
