@@ -6,7 +6,7 @@ class PlanetsArrangementController:
     def arrange_planets(self, number_of_planets, colors_list, minimal_distance, min_mass, max_mass, min_radius, max_radius,
                         max_width, max_height, margin):
 
-        if max_width < margin or max_height < margin:
+        if max_width < 2 * margin or max_height < 2 * margin:
             raise ValueError('Too big margin value')
 
         list_of_planets = []
