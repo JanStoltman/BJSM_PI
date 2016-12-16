@@ -14,6 +14,7 @@ class ScreenController:
         self.spacecraft_bitmap = None
         self.planets = None
         self.filename = None
+        self.planet_filenames = []
         self.canvas = tkinter.Canvas(self.screen, bg="black", height=self.height, width=self.width)
 
         self.width = self.screen.winfo_screenwidth() - 75
@@ -26,9 +27,9 @@ class ScreenController:
         for p in planets:
             x = p.coordinates[0]
             y = p.coordinates[1]
-            self.canvas.create_oval(x - p.radius, y - p.radius,
-                                    x + p.radius, y + p.radius,
-                                    fill=p.color)
+            self.planet_filenames.append(tkinter.PhotoImage(file=p.image))
+            self.planet_filenames[-1] = self.planet_filenames[-1].subsample(int(125/p.radius),int(125/p.radius))
+            self.canvas.create_image((x, y), image=self.planet_filenames[-1])
 
     def add_spacecraft(self, spacecraft):
         self.filename = tkinter.PhotoImage(file=spacecraft.image)
@@ -39,4 +40,3 @@ class ScreenController:
         self.canvas.pack()
         self.add_planet(planets=_planets)
         self.add_spacecraft(spacecraft=_spacecraft)
-

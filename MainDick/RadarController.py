@@ -6,6 +6,8 @@ class RadarController:
         search_square = self.convert_to_square(radar_radius, ship_position_x, ship_position_y, space_width, space_height)
         planets_to_scan_for = self.planets_in_square(planets, search_square) if use_square_first else planets
 
+        return planets_to_scan_for
+
 
 
 
