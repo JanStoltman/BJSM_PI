@@ -12,7 +12,6 @@ planets = PlanetsArrangementController().arrange_planets(number_of_planets=3, co
                                                          max_height=screenController.height,
                                                          max_width=screenController.width,
                                                          margin=10)
-
 craft = Spacecraft(fuel=100, power=10, mass=10, position_y=50, position_x=50, image="Spacecraft.png",name="Dupa")
 
 screenController.pack_canvas(planets, craft)
