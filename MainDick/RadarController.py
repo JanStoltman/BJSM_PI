@@ -1,14 +1,13 @@
-from MainDick.SpaceObjects.Planet import Planet
+import math
 
 class RadarController:
 
     def scan_for_planets(self, planets, radar_radius, ship_position_x, ship_position_y, space_width, space_height, use_square_first = True):
-        search_square = self.convert_to_square(radar_radius, ship_position_x, ship_position_y, space_width, space_height)
+        search_square = self.convert_to_square(2 * radar_radius, ship_position_x, ship_position_y, space_width, space_height)
         planets_to_scan_for = self.planets_in_square(planets, search_square) if use_square_first else planets
+        planets_in_sight = self.planets_detected(planets_to_scan_for, radar_radius, ship_position_x, ship_position_y)
 
-        return planets_to_scan_for
-
-
+        return planets_in_sight
 
 
     def convert_to_square(self, half_side, center_x, center_y, max_x, max_y):
@@ -27,3 +26,17 @@ class RadarController:
                 list_of_planets_in_square.append(planet)
 
         return list_of_planets_in_square
+
+
+    def planets_detected(self, possible_planets, radius, ship_x, ship_y):
+        detected_planets_list = []
+        for planet in possible_planets:
+            if self.close_enough(planet.coordinates[0], planet.coordinates[1], ship_x, ship_y, planet.radius + radius):
+                detected_planets_list.append(planet)
+
+        return detected_planets_list
+
+
+    def close_enough(self, planet_x, planet_y, ship_x, ship_y, max_distance):
+        return math.sqrt((planet_x + ship_x) ** 2 + (planet_y + ship_y) ** 2) < max_distance
+
