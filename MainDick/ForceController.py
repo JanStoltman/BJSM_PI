@@ -13,4 +13,6 @@ def net_move(gravs, thrust, tick=1):
     for v in gravs:
         net.sum(v.multiply(tick**2/2))
     return net.sum(thrust.multiply(tick))
+def movement(net_r, ship):
+    ship.coordinates = ship.coordinates[0]+net_r[0], ship.coordinates[1]+net_r[1], 0
 
