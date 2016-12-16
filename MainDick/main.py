@@ -4,11 +4,11 @@ from MainDick.PlanetsArrangementController import PlanetsArrangementController
 
 import MainDick.ImageLoader as ImL
 
-screenController = ScreenController()
-planets = PlanetsArrangementController().arrange_planets(number_of_planets=3,
+screenController = ScreenController(background=ImL.get_background_image())
+planets = PlanetsArrangementController().arrange_planets(number_of_planets=7,
                                                          minimal_distance=300,
                                                          min_mass=10,
-                                                         min_radius=5,
+                                                         min_radius=30,
                                                          max_mass=100,
                                                          max_radius=125,
                                                          max_height=screenController.height,
