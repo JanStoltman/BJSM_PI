@@ -16,6 +16,9 @@ class ScreenController:
         self.filename = None
         self.canvas = tkinter.Canvas(self.screen, bg="black", height=self.height, width=self.width)
 
+        self.width = self.screen.winfo_screenwidth() - 75
+        self.height = self.screen.winfo_screenheight() - 50
+
     def show_screen(self):
         self.screen.mainloop()
 
