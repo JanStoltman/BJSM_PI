@@ -29,8 +29,8 @@ class ScreenController:
 
     def add_planet(self, planets):
         for p in planets:
-            x = p.coordinates[0]
-            y = p.coordinates[1]
+            x = p.coordinates.x
+            y = p.coordinates.y
             self.planet_filenames.append(tkinter.PhotoImage(file=p.image))
             self.planet_filenames[-1] = self.planet_filenames[-1].subsample(int(125 / p.radius), int(125 / p.radius))
             self.canvas.create_image((x, y), image=self.planet_filenames[-1])

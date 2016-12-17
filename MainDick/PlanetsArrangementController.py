@@ -1,4 +1,5 @@
 from MainDick.SpaceObjects.Planet import Planet
+from MainDick.Point import Point
 import random
 import math
 
@@ -22,7 +23,7 @@ class PlanetsArrangementController:
             first_planet = Planet('planet0',
                                   random.randint(min_mass, max_mass),
                                   first_planet_radius,
-                                  (random.randint(margin + first_planet_radius,
+                                  Point(random.randint(margin + first_planet_radius,
                                                   max_width - margin - first_planet_radius),
                                    random.randint(margin + first_planet_radius,
                                                   max_height - margin - first_planet_radius)),
@@ -35,12 +36,12 @@ class PlanetsArrangementController:
 
             next_planet_radius = random.randint(min_radius, max_radius)
 
-            next_planet_coords = (random.randint(margin + next_planet_radius, max_width - margin - next_planet_radius),
+            next_planet_coords = Point(random.randint(margin + next_planet_radius, max_width - margin - next_planet_radius),
                                   random.randint(margin + next_planet_radius, max_height - margin - next_planet_radius))
             loop_guardian = 0
 
             while not self.acceptable_coordinates(list_of_coords, next_planet_coords, minimal_distance):
-                next_planet_coords = (
+                next_planet_coords = Point(
                     random.randint(margin + next_planet_radius, max_width - margin - next_planet_radius),
                     random.randint(margin + next_planet_radius, max_height - margin - next_planet_radius))
                 loop_guardian += 1
@@ -50,7 +51,7 @@ class PlanetsArrangementController:
             next_planet = Planet('planet' + str(i),
                                  random.randint(min_mass, max_mass),
                                  next_planet_radius,
-                                 (next_planet_coords[0], next_planet_coords[1]),
+                                 next_planet_coords,
                                  image=random.choice(files_list))
 
             list_of_planets.append(next_planet)
@@ -59,10 +60,8 @@ class PlanetsArrangementController:
 
     def acceptable_coordinates(self, list_of_coords, curr_planet_coords, min_distance):
 
-        curr_x, curr_y = curr_planet_coords
-
-        for prev_x, prev_y in list_of_coords:
-            if math.sqrt((curr_x - prev_x) ** 2 + (curr_y - prev_y) ** 2) < min_distance:
+        for prev_coords in list_of_coords:
+            if curr_planet_coords.proximity(prev_coords) < min_distance:
                 return False
 
         return True
