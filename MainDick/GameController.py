@@ -20,7 +20,7 @@ class GameController:
     @staticmethod
     def is_out_of_space(ship_position, max_x, max_y):
 
-        return not ship_position.x in range(0, max_x) and ship_position.y in range(0, max_y)
+        return  ship_position.x not in range(0, max_x) or ship_position.y not in range(0, max_y)
 
     def crashed(self, planets, spacecraft):
 
