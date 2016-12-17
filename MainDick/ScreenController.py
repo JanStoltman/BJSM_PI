@@ -37,9 +37,14 @@ class ScreenController:
         self.st.grid(row=0, column=5)
 
         self.canvas = tkinter.Canvas(self.screen, bg="black", height=self.height, width=self.width)
+        self.canvas.bind("<Key>", self.key)
+        self.screen.bind("<Key>", self.key)
 
         self.width = self.screen.winfo_screenwidth() - 75
         self.height = self.screen.winfo_screenheight() - 50
+
+    def key(self,event):
+        print("pressed" + repr(event.char))
 
     def show_screen(self):
         self.screen.mainloop()
