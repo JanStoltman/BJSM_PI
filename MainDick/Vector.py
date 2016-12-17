@@ -1,5 +1,4 @@
 from MainDick.Point import Point
-from math import radians, sin, cos
 
 class Vector:
 
@@ -29,6 +28,3 @@ class Vector:
 
     def to_list(self):
         return [self.X, self.Y]
-
-    def from_len_ang_angle(self, len, angle):
-        return Vector(len * sin(radians(angle)), len * cos(radians(angle)))

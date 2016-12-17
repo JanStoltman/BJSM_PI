@@ -1,5 +1,6 @@
 from MainDick.ForceController import ForceController
 from MainDick.Vector import Vector
+from math import radians, cos, sin
 
 class Spacecraft:
 
@@ -21,15 +22,15 @@ class Spacecraft:
         gravity_vector = ForceController().calculate_gravity_vector(planets, self)
 
         if direction == 'fd':
-            thrust_vector = Vector().from_len_and_angle(self.power, self.direction)
+            thrust_vector = self.vector_from_len_and_angle(self.power, self.direction)
             movement_vector = gravity_vector.sum(thrust_vector)
 
         elif direction == 'lt':
-            thrust_vector = Vector().from_len_and_angle(self.power, self.direction + 90)
+            thrust_vector = self.vector_from_len_and_angle(self.power, self.direction + 90)
             movement_vector = gravity_vector.sum(thrust_vector)
 
         elif direction == 'rt':
-            thrust_vector = Vector().from_len_and_angle(self.power, self.direction - 90)
+            thrust_vector = self.vector_from_len_and_angle(self.power, self.direction - 90)
             movement_vector = gravity_vector.sum(thrust_vector)
 
         else:
@@ -39,6 +40,11 @@ class Spacecraft:
         self.position.y += movement_vector.Y
 
         return movement_vector
+
+
+    def vector_from_len_and_angle(self, len, angle):
+
+        return Vector(len * sin(radians(angle)), len * cos(radians(angle)))
 
 
 
