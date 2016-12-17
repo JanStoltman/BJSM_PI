@@ -16,31 +16,29 @@ class Spacecraft:
         self.radius = radius
 
 
-    def fly(self, planets, directions):
+    def fly(self, planets, direction):
 
         gravity_vector = ForceController().calculate_gravity_vector(planets, self)
-        thrust_vector = (0, 0)
+        thrust_vector = Vector(0, 0)
         direction_change = 0
 
-        if 'W' in directions:
+        if 'w' == direction:
             direction_change += 5
 
-        if 'A' in directions:
+        if 'a' == direction:
             direction_change -= 5
 
-        if 'S' in directions:
+        if 's' == direction:
             thrust_vector = thrust_vector.sum(self.vector_from_len_and_angle(self.power, self.direction))
 
-        if 'D' in directions:
+        if 'd' == direction:
             thrust_vector = thrust_vector.sum(self.vector_from_len_and_angle(self.power / 2, self.direction + 180))
 
         movement_vector = gravity_vector.sum(thrust_vector)
 
-        self.position.x += movement_vector.X
-        self.position.y += movement_vector.Y
         self.direction += direction_change
 
-        return movement_vector.to_list()[0], movement_vector.to_list()[1], direction_change
+        return movement_vector.to_list()[0], movement_vector.to_list()[1], self.direction
 
 
     def vector_from_len_and_angle(self, len, angle):
