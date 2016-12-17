@@ -4,7 +4,7 @@ class Vector:
 
     def __init__(self, X, Y):
         self.X = X
-        self.X = Y
+        self.Y = Y
         
 
     def sum(self, vector2):
@@ -24,10 +24,6 @@ class Vector:
     def magnitude(self):
         point = Point(self.X, self.Y)
         return Point(0, 0).proximity(point)
-
-
-    def from_points(self, point1, point2):
-        return Vector(point2.x - point1.x, point2.y - point1.y)
 
 
     def to_list(self):
