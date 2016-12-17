@@ -1,4 +1,5 @@
 import tkinter
+from PIL import Image, ImageTk
 from MainDick.SpaceObjects.Planet import Planet
 from MainDick.SpaceObjects.Spacecraft import Spacecraft
 
@@ -36,9 +37,18 @@ class ScreenController:
             self.canvas.create_image((x, y), image=self.planet_filenames[-1])
 
     def add_spacecraft(self, spacecraft):
-        self.filename = tkinter.PhotoImage(file=spacecraft.image)
+        image = Image.open(spacecraft.image)
+        self.filename = ImageTk.PhotoImage(image.rotate(spacecraft.direction))
         self.spacecraft_bitmap = self.canvas.create_image((spacecraft.position.x, spacecraft.position.y),
                                                           image=self.filename)
+
+    def move_spacecraft(self, updated_spacecraft):
+        self.canvas.delete(self.spacecraft_bitmap)
+        image = Image.open(updated_spacecraft.image)
+        self.filename = ImageTk.PhotoImage(image.rotate(updated_spacecraft.direction))
+        self.spacecraft_bitmap = self.canvas.create_image(
+            (updated_spacecraft.position.x, updated_spacecraft.position.y),
+            image=self.filename)
 
     def pack_canvas(self, _planets, _spacecraft):
         self.canvas.pack()
