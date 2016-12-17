@@ -1,6 +1,7 @@
 from MainDick.ScreenController import ScreenController
 from MainDick.SpaceObjects.Spacecraft import Spacecraft
 from MainDick.PlanetsArrangementController import PlanetsArrangementController
+from MainDick.Point import Point
 
 import MainDick.ImageLoader as ImL
 
@@ -16,7 +17,7 @@ planets = PlanetsArrangementController().arrange_planets(number_of_planets=7,
                                                          margin=10,
                                                          files_list=ImL.get_planet_images())
 craft = Spacecraft(fuel=100, power=10, mass=10,
-                   position_x=screenController.width, position_y=screenController.height,
+                   position = Point(screenController.width, screenController.height),
                    image=ImL.get_spacecraft_image(), name="Dupa")
 
 screenController.pack_canvas(planets, craft)

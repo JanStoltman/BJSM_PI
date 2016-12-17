@@ -1,3 +1,5 @@
+from MainDick.Point import Point
+
 class GameController:
 
     def flight(self, planets, ship, max_x, max_y):
@@ -16,7 +18,7 @@ class GameController:
 
     def reached_destination(self, ship, destination):
 
-        return proximity((ship.position_x, ship.position_y), )
+        return
 
 
 

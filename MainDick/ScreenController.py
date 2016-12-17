@@ -37,7 +37,7 @@ class ScreenController:
 
     def add_spacecraft(self, spacecraft):
         self.filename = tkinter.PhotoImage(file=spacecraft.image)
-        self.spacecraft_bitmap = self.canvas.create_image((spacecraft.position_x, spacecraft.position_y),
+        self.spacecraft_bitmap = self.canvas.create_image((spacecraft.position.x, spacecraft.position.y),
                                                           image=self.filename)
 
     def pack_canvas(self, _planets, _spacecraft):
