@@ -1,11 +1,12 @@
+from MainDick.Point import Point
 import math
 
 class RadarController:
 
-    def scan_for_planets(self, planets, radar_radius, ship_position_x, ship_position_y, space_width, space_height):
-        search_square = self.convert_to_square(2 * radar_radius, ship_position_x, ship_position_y, space_width, space_height)
+    def scan_for_planets(self, planets, radar_radius, ship_position, space_width, space_height):
+        search_square = self.convert_to_square(2 * radar_radius, ship_position.x, ship_position.y, space_width, space_height)
         planets_to_scan_for = self.planets_in_square(planets, search_square)
-        planets_in_sight = self.planets_detected(planets_to_scan_for, radar_radius, ship_position_x, ship_position_y)
+        planets_in_sight = self.planets_detected(planets_to_scan_for, radar_radius, ship_position)
 
         return planets_in_sight
 
@@ -22,21 +23,21 @@ class RadarController:
     def planets_in_square(self, planets, square):
         list_of_planets_in_square = []
         for planet in planets:
-            if planet.coordinates.x >= square[0][0] and planet.coordinates.x <= square[0][1] and planet.coordinates.y >= square[1][0] and planet.coordinates.y <= square[1][1]:
+            if planet.coordinates.x >= square[0][0] and planet.coordinates.x <= square[1][0] and planet.coordinates.y >= square[0][1] and planet.coordinates.y <= square[1][1]:
                 list_of_planets_in_square.append(planet)
 
         return list_of_planets_in_square
 
 
-    def planets_detected(self, possible_planets, radius, ship_x, ship_y):
+    def planets_detected(self, possible_planets, radius, ship_coords):
         detected_planets_list = []
         for planet in possible_planets:
-            if self.close_enough(planet.coordinates[0], planet.coordinates[1], ship_x, ship_y, planet.radius + radius):
+            if self.close_enough(planet.coordinates, ship_coords, planet.radius + radius):
                 detected_planets_list.append(planet)
 
         return detected_planets_list
 
 
-    def close_enough(self, planet_x, planet_y, ship_x, ship_y, max_distance):
-        return math.sqrt((planet_x + ship_x) ** 2 + (planet_y + ship_y) ** 2) < max_distance
+    def close_enough(self, planet_coords, ship_coords, max_distance):
+        return  planet_coords.proximity(ship_coords) < max_distance
 
