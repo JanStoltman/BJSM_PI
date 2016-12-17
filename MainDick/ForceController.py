@@ -1,4 +1,5 @@
 from MainDick.Vector import Vector
+import math
 
 class ForceController:
 
@@ -24,11 +25,14 @@ class ForceController:
         return net
 
 
-    def calculate_movement_vector(self, planets, ship, speed, tick = 1):
+    def calculate_movement_vector(self, planets, ship, tick = 1):
         gravity_vectors_list = []
         for planet in planets:
             gravity_vectors_list.append(self.gravity_vector(ship, planet))
 
-        gravity = self.net_gravity(gravity_vectors_list) * tick ** 2 / 2 * ship.mass
+        gravity = self.net_gravity(gravity_vectors_list).multiply(tick ** 2 / 2 * ship.mass)
+        gravity = Vector(int(gravity.X), int(gravity.Y))
 
-        return gravity.sum(speed * tick)
+        movement = Vector(int(ship.speed * tick * math.sin(ship.direction)), int(ship.speed * tick * math.cos(ship.direction)))
+
+        return gravity.sum(movement)

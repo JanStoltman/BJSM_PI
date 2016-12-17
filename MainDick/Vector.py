@@ -3,8 +3,8 @@ from MainDick.Point import Point
 class Vector:
 
     def __init__(self, X, Y):
-        self.X = X
-        self.Y = Y
+        self.X = int(X)
+        self.Y = int(Y)
         
 
     def sum(self, vector2):

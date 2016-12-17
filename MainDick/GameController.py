@@ -1,12 +1,12 @@
+from MainDick.FlightController import FlightController
+
 class GameController:
     @staticmethod
-    def flight(planets, ship, max_x, max_y):
+    def flight(planets, ship, max_x, max_y, tick = 1):
 
-        x = -10
-        y = -20
-        z = (ship.direction + 10) % 360
+        flightController = FlightController()
 
-        return (x, y, z)
+        return flightController.acceleration_control(ship, planets, 400, max_x, max_y, tick)
 
     def is_dead(self, planets, ship, max_x, max_y):
 

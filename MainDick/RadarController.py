@@ -22,7 +22,7 @@ class RadarController:
     def planets_in_square(self, planets, square):
         list_of_planets_in_square = []
         for planet in planets:
-            if planet.coordinates[0] in range(square[0][0], square[0][1]) and planet.coordinates[1] in range(square[1][0], square[1][1]):
+            if planet.coordinates.x >= square[0][0] and planet.coordinates.x <= square[0][1] and planet.coordinates.y >= square[1][0] and planet.coordinates.y <= square[1][1]:
                 list_of_planets_in_square.append(planet)
 
         return list_of_planets_in_square
