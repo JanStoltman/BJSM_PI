@@ -30,5 +30,3 @@ class ForceController:
             gravity_vectors_list.append(self.gravity_vector(ship, planet))
 
         return self.net_gravity(gravity_vectors_list) * tick ** 2 / 2 * ship.mass
-
-
