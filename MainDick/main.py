@@ -25,6 +25,6 @@ craft = Spacecraft(fuel=100, power=20, mass=10,
                    image=ImL.get_destroyer_image(),
                    base_station=base_station, name="Dupa", direction=180, radius=35, speed=-5)
 
-screenController.pack_canvas(planets, craft)
 planets = planets[1:]
+screenController.pack_canvas(planets, craft)
 screenController.show_screen()
