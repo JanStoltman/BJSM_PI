@@ -1,30 +1,26 @@
 class GameController:
+    @staticmethod
+    def flight(planets, ship, max_x, max_y):
 
-    def flight(self, planets, ship, max_x, max_y):
+        x = -10
+        y = -20
+        z = (ship.direction + 10) % 360
 
-
-
-        ship.position.x = ship.position.x + 10
-        ship.position.y = ship.position.y + 20
-        ship.direction = (ship.direction + 10) % 360
-
-        return ship
-
+        return (x, y, z)
 
     def is_dead(self, planets, ship):
 
         return self.is_out_of_space(ship.position) or self.crashed(planets, ship.position)
 
-
-    def reached_destination(self, ship_position, destination):
+    @staticmethod
+    def reached_destination(ship_position, destination):
 
         return ship_position.proximity(destination.coordinates) <= destination.radius
 
-
-    def is_out_of_space(self, ship_position, max_x, max_y):
+    @staticmethod
+    def is_out_of_space(ship_position, max_x, max_y):
 
         return not ship_position.x in range(0, max_x) and ship_position.y in range(0, max_y)
-
 
     def crashed(self, planets, ship_position):
 
@@ -32,6 +28,3 @@ class GameController:
             if self.reached_destination(ship_position, planet):
                 return True
         return False
-
-
-

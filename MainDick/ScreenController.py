@@ -1,5 +1,6 @@
 import tkinter
 from PIL import Image, ImageTk
+from MainDick.GameController import GameController
 from MainDick.SpaceObjects.Planet import Planet
 from MainDick.SpaceObjects.Spacecraft import Spacecraft
 
@@ -13,6 +14,8 @@ class ScreenController:
         self.width = self.screen.winfo_screenwidth()
         self.height = self.screen.winfo_screenheight()
 
+        self.spacecraft_image = None
+        self.spacecraft = None
         self.background = background
         self.spacecraft_bitmap = None
         self.planets = None
@@ -26,6 +29,7 @@ class ScreenController:
         self.height = self.screen.winfo_screenheight() - 50
 
     def show_screen(self):
+        self.move_spacecraft(GameController.flight(self.planets, self.spacecraft, self.width, self.height))
         self.screen.mainloop()
 
     def add_planet(self, planets):
@@ -37,18 +41,26 @@ class ScreenController:
             self.canvas.create_image((x, y), image=self.planet_filenames[-1])
 
     def add_spacecraft(self, spacecraft):
-        image = Image.open(spacecraft.image)
-        self.filename = ImageTk.PhotoImage(image.rotate(spacecraft.direction))
+        self.spacecraft = spacecraft
+        self.spacecraft_image = Image.open(spacecraft.image)
+        self.filename = ImageTk.PhotoImage(self.spacecraft_image.rotate(spacecraft.direction))
         self.spacecraft_bitmap = self.canvas.create_image((spacecraft.position.x, spacecraft.position.y),
                                                           image=self.filename)
 
-    def move_spacecraft(self, updated_spacecraft):
-        self.canvas.delete(self.spacecraft_bitmap)
-        image = Image.open(updated_spacecraft.image)
-        self.filename = ImageTk.PhotoImage(image.rotate(updated_spacecraft.direction))
-        self.spacecraft_bitmap = self.canvas.create_image(
-            (updated_spacecraft.position.x, updated_spacecraft.position.y),
-            image=self.filename)
+    def move_spacecraft(self, movement_tuple):
+        self.canvas.move(self.spacecraft_bitmap, movement_tuple[0], movement_tuple[1])
+        self.spacecraft.position.x += movement_tuple[0]
+        self.spacecraft.position.y += movement_tuple[1]
+        self.rotate_spacecraft(movement_tuple[2])
+        self.canvas.after(100, self.move_spacecraft,
+                          GameController.flight(self.planets, self.spacecraft, self.width, self.height))
+
+    def rotate_spacecraft(self, direction):
+        self.spacecraft_image = Image.open(self.spacecraft.image)
+        self.filename = ImageTk.PhotoImage(self.spacecraft_image.rotate(direction))
+        self.spacecraft_bitmap = self.canvas.create_image((self.spacecraft.position.x, self.spacecraft.position.y),
+                                                          image=self.filename)
+        self.spacecraft.direction = direction
 
     def pack_canvas(self, _planets, _spacecraft):
         self.canvas.pack()
