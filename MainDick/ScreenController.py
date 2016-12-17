@@ -36,15 +36,15 @@ class ScreenController:
         self.st = tkinter.Button(self.screen, text="Start", command=self.start_sim)
         self.st.grid(row=0, column=5)
 
-        self.canvas = tkinter.Canvas(self.screen, bg="black", height=self.height, width=self.width)
+        self.canvas = tkinter.Canvas(self.screen, bg="black", height=self.height-130, width=self.width-60)
         self.canvas.bind("<Key>", self.key)
         self.screen.bind("<Key>", self.key)
 
-        self.width = self.screen.winfo_screenwidth() - 75
-        self.height = self.screen.winfo_screenheight() - 50
+        self.width = self.screen.winfo_screenwidth()-60
+        self.height = self.screen.winfo_screenheight() -130
 
-    def key(self,event):
-        print("pressed" + repr(event.char))
+    def key(self, event):
+        self.spacecraft.fly(self.planets, [event]),
 
     def show_screen(self):
         self.screen.mainloop()
@@ -93,7 +93,7 @@ class ScreenController:
         self.spacecraft.direction = direction
 
     def pack_canvas(self, _planets, _spacecraft):
-        self.canvas.grid(row=1,column = 0, columnspan=6)
+        self.canvas.grid(row=1, column=0, columnspan=6)
         self.set_background_image()
         self.add_planet(planets=_planets)
         self.add_spacecraft(spacecraft=_spacecraft)
