@@ -4,7 +4,7 @@ import math
 class ForceController:
 
     def gravity(self, ship, planet):
-        G = 6.67
+        G = 6.67 * 3
         return G * planet.mass * ship.mass / ship.position.proximity(planet.coordinates) ** 2
 
 
@@ -33,6 +33,7 @@ class ForceController:
         gravity = self.net_gravity(gravity_vectors_list).multiply(tick ** 2 / 2 * ship.mass)
         gravity = Vector(int(gravity.X), int(gravity.Y))
 
-        movement = Vector(int(ship.speed * tick * math.sin(ship.direction)), int(ship.speed * tick * math.cos(ship.direction)))
+        movement = Vector(int(ship.speed * tick * math.sin(math.radians(ship.direction))),
+                          int(ship.speed * tick * math.cos(math.radians(ship.direction))))
 
         return gravity.sum(movement)
