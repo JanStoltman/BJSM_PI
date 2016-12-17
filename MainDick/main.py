@@ -2,7 +2,6 @@ from MainDick.ScreenController import ScreenController
 from MainDick.SpaceObjects.Spacecraft import Spacecraft
 from MainDick.PlanetsArrangementController import PlanetsArrangementController
 from MainDick.Point import Point
-from MainDick.SpaceObjects.Planet import Planet
 
 import MainDick.ImageLoader as ImL
 
