@@ -63,7 +63,7 @@ class ScreenController:
         elif GameController().has_won(spacecraft=self.spacecraft):
             self.show_won()
         else:
-            self.canvas.after(100, self.move_spacecraft,
+            self.canvas.after(25, self.move_spacecraft,
                               GameController.flight(self.planets, self.spacecraft, self.width, self.height))
 
     def rotate_spacecraft(self, direction):
