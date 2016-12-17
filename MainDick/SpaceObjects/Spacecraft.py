@@ -35,7 +35,6 @@ class Spacecraft:
             thrust_vector = thrust_vector.sum(self.vector_from_len_and_angle(self.power / 2, self.direction + 180))
 
         movement_vector = gravity_vector.sum(thrust_vector)
-
         self.direction += direction_change
 
         return movement_vector.to_list()[0], movement_vector.to_list()[1], self.direction
