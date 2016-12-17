@@ -7,7 +7,7 @@ from MainDick.SpaceObjects.Planet import Planet
 import MainDick.ImageLoader as ImL
 
 screenController = ScreenController(background=ImL.get_background_image())
-planets = PlanetsArrangementController().arrange_planets(number_of_planets=6,
+planets = PlanetsArrangementController().arrange_planets(number_of_planets=0,
                                                          minimal_distance=300,
                                                          min_mass=10,
                                                          min_radius=30,
