@@ -1,7 +1,10 @@
 import tkinter
 from tkinter import messagebox
+from MainDick.SpaceObjects.Spacecraft import Spacecraft
+from MainDick.Point import Point
 
 from PIL import Image, ImageTk
+from random import randint
 
 import MainDick.ImageLoader as ImL
 from MainDick.GameController import GameController
@@ -23,7 +26,9 @@ class ScreenController:
         self.planets = None
         self.filename = None
         self.background_filename = None
+        self.filename_gif = []
         self.planet_filenames = []
+        self.spacecraft_bitmap_gif = []
 
         self.canvas = tkinter.Canvas(self.screen, bg="black", height=self.height, width=self.width)
 
@@ -43,6 +48,12 @@ class ScreenController:
             self.planet_filenames[-1] = self.planet_filenames[-1].subsample(int(125 / p.radius), int(125 / p.radius))
             self.canvas.create_image((x, y), image=self.planet_filenames[-1])
 
+        x = self.spacecraft.base_station.coordinates.x
+        y = self.spacecraft.base_station.coordinates.y
+        self.planet_filenames.append(tkinter.PhotoImage(file=self.spacecraft.base_station.image))
+        self.planet_filenames[-1] = self.planet_filenames[-1].subsample(int(125 / self.spacecraft.base_station.radius), int(125 / self.spacecraft.base_station.radius))
+        self.canvas.create_image((x, y), image=self.planet_filenames[-1])
+
     def add_spacecraft(self, spacecraft):
         self.spacecraft = spacecraft
         self.spacecraft_image = Image.open(spacecraft.image)
@@ -57,11 +68,15 @@ class ScreenController:
         self.rotate_spacecraft(movement_tuple[3])
         self.spacecraft.speed = movement_tuple[2]
         self.spacecraft.fuel = movement_tuple[4]
-        if GameController().is_dead(self.planets, self.spacecraft, self.width, self.height):
+        if GameController().is_dead(self.planets, self.spacecraft, self.width, self.height) or GameController().has_won(spacecraft=self.spacecraft):
             self.canvas.delete(self.spacecraft_bitmap)
-            self.show_gif()
-        elif GameController().has_won(spacecraft=self.spacecraft):
-            self.show_won()
+            self.add_spacecraft(Spacecraft(fuel=100, power=20, mass=10,
+                                                                   position=Point(randint(0, self.width- 50),
+                                                                                  randint(0, self.height - 50)),
+                                                                   image=ImL.get_destroyer_image(),
+                                                                   base_station=self.spacecraft.base_station,
+                                                                   name="Dupa", direction=180, radius=35, speed=-5))
+            self.move_spacecraft(GameController.flight(self.planets, self.spacecraft, self.width, self.height))
         else:
             self.canvas.after(25, self.move_spacecraft,
                               GameController.flight(self.planets, self.spacecraft, self.width, self.height))
@@ -76,6 +91,8 @@ class ScreenController:
     def pack_canvas(self, _planets, _spacecraft):
         self.canvas.pack()
         self.set_background_image()
+        self.spacecraft = _spacecraft
+        self.planets = _planets
         self.add_planet(planets=_planets)
         self.add_spacecraft(spacecraft=_spacecraft)
 
@@ -85,9 +102,10 @@ class ScreenController:
 
     def show_gif(self, f=200):
         try:
-            self.filename = tkinter.PhotoImage(file=ImL.get_explosion_gif(), format="gif -index {}".format(f))
-            self.spacecraft_bitmap = self.canvas.create_image(self.spacecraft.position.x, self.spacecraft.position.y,
-                                                              image=self.filename)
+            self.filename_gif.append(tkinter.PhotoImage(file=ImL.get_explosion_gif(), format="gif -index {}".format(f)))
+            self.spacecraft_bitmap_gif.append(
+                self.canvas.create_image(self.spacecraft.position.x, self.spacecraft.position.y,
+                                         image=self.self.filename_gif[-1]))
             f += 1
         except Exception:
             f = 1

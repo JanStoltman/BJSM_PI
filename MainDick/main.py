@@ -7,7 +7,7 @@ from MainDick.SpaceObjects.Planet import Planet
 import MainDick.ImageLoader as ImL
 
 screenController = ScreenController(background=ImL.get_background_image())
-planets = PlanetsArrangementController().arrange_planets(number_of_planets=8,
+planets = PlanetsArrangementController().arrange_planets(number_of_planets=12,
                                                          minimal_distance=300,
                                                          min_mass=1,
                                                          min_radius=30,
@@ -23,7 +23,7 @@ base_station = planets[0]
 craft = Spacecraft(fuel=100, power=20, mass=10,
                    position=Point(screenController.width - 50, screenController.height - 50),
                    image=ImL.get_destroyer_image(),
-                   base_station=base_station, name="Dupa", direction=180, radius=35, speed=-5)
+                   base_station=base_station, name="Dupa", direction=180, radius=35, speed=-40)
 
 planets = planets[1:]
 screenController.pack_canvas(planets, craft)
