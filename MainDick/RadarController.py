@@ -16,7 +16,7 @@ class RadarController:
         right_upper_x = center_x + half_side if center_x + half_side <= max_x else max_x
         right_upper_y = center_y + half_side if center_y + half_side <= max_y else max_y
 
-        return ((left_lower_x, left_lower_y), (right_upper_x, right_upper_y))
+        return (left_lower_x, left_lower_y), (right_upper_x, right_upper_y)
 
 
     def planets_in_square(self, planets, square):
