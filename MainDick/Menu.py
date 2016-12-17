@@ -26,5 +26,5 @@ def run_sim(name, power, fuel, mass, position, image, ready, speed = 20, directi
         screenController.show_screen()
 
 
-interact(run_sim, name='Name', power=10.0, fuel=10.0, mass=10.0, position=(0,0),
-         image=fixed(ImL.get_spacecraft_image()), speed=20.0, direction=0, radius=fixed(35), ready=False)
+interact(run_sim, name='Name', power=10.0, fuel=10.0, mass=10.0, position=fixed((0,0)),
+         image=fixed(ImL.get_spacecraft_image()), ready=False, speed=20.0, direction=0, radius=fixed(35))
