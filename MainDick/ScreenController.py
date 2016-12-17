@@ -81,7 +81,7 @@ class ScreenController:
             self.canvas.delete(self.spacecraft_bitmap)
             self.show_gif()
             self.screen.destroy()
-        elif GameController().has_won(spacecraft=self.spacecraft):
+        elif GameController().has_won(spacecraft=self.spacecraft,planets=self.planets):
             self.show_won()
 
     def rotate_spacecraft(self, direction):

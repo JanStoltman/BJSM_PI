@@ -27,5 +27,5 @@ class GameController:
                 return True
         return False
 
-    def has_won(self, spacecraft):
-        return self.reached_destination(spacecraft, spacecraft.base_station)
+    def has_won(self, spacecraft,planets):
+        return self.reached_destination(spacecraft, planets[0])
