@@ -13,13 +13,12 @@ class FlightController:
         radarController = RadarController()
 
         movement_vector = ForceController().calculate_movement_vector(planets, ship)
-        planets_on_radar = radarController.scan_for_planets(planets, radar_radius, ship.position.x,
-                                                              ship.position.y, max_width, max_height)
+        planets_on_radar = radarController.scan_for_planets(planets, radar_radius, ship.position, max_width, max_height)
 
+        print(planets_on_radar)
         ship.position.x += movement_vector.X
         ship.position.y += movement_vector.Y
         temp_dir = RotationController().get_rotation(ship, ship.base_station.coordinates)
-        print(planets_on_radar)
 
         if FrontScanner().will_collide(ship, planets_on_radar):
             direction, turn = self.rotation_control(ship, ship.base_station.coordinates, planets_on_radar)
@@ -35,7 +34,7 @@ class FlightController:
         check = 0
 
         while radarController.scan_for_planets(planets, int(radar_radius / (5 + 2 * check)), ship.position.x,
-                                             ship.position.y, max_width, max_height) and ship.fuel - check >= 0:
+                                               max_width, max_height) and ship.fuel - check >= 0:
             check += 1
 
         movement_x, movement_y, speed = self.accelerate(check, ship, tick)

@@ -14,7 +14,7 @@ class ForceController:
 
     def gravity_vector(self, ship, planet):
         v = self.from_points(ship.position, planet.coordinates)
-        v = v.multiply(self.gravity(ship, planet) / v.magnitude())
+        v = v.multiply(int(self.gravity(ship, planet) / v.magnitude()))
         return v
 
 
