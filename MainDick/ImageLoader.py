@@ -17,9 +17,9 @@ def get_planet_images():
 
 def get_spacecraft_image():
     script_dir = os.path.dirname(__file__)  # <-- absolute dir the script is in
-    return [os.path.join(script_dir, "Images/Spacecraft.png")]
+    return os.path.join(script_dir, "Images/Spacecraft.png")
 
 
 def get_background_image():
     script_dir = os.path.dirname(__file__)  # <-- absolute dir the script is in
-    return [os.path.join(script_dir, "Images/Background.png")]
+    return os.path.join(script_dir, "Images/Background.png")

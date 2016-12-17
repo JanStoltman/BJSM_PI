@@ -17,7 +17,7 @@ planets = PlanetsArrangementController().arrange_planets(number_of_planets=7,
                                                          margin=10,
                                                          files_list=ImL.get_planet_images())
 craft = Spacecraft(fuel=100, power=10, mass=10,
-                   position = Point(screenController.width, screenController.height),
+                   position=Point(screenController.width, screenController.height),
                    image=ImL.get_spacecraft_image(), name="Dupa")
 
 screenController.pack_canvas(planets, craft)
