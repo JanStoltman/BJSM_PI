@@ -2,9 +2,9 @@ import math
 
 class RadarController:
 
-    def scan_for_planets(self, planets, radar_radius, ship_position_x, ship_position_y, space_width, space_height, use_square_first = True):
+    def scan_for_planets(self, planets, radar_radius, ship_position_x, ship_position_y, space_width, space_height):
         search_square = self.convert_to_square(2 * radar_radius, ship_position_x, ship_position_y, space_width, space_height)
-        planets_to_scan_for = self.planets_in_square(planets, search_square) if use_square_first else planets
+        planets_to_scan_for = self.planets_in_square(planets, search_square)
         planets_in_sight = self.planets_detected(planets_to_scan_for, radar_radius, ship_position_x, ship_position_y)
 
         return planets_in_sight
