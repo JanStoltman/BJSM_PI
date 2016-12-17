@@ -3,12 +3,12 @@ import math
 
 class FrontScanner:
 
-    def will_collide(self, ship, planet_candidates):
+    def will_collide(self, ship, planet_candidates, max_width, max_height):
         a = math.tan(math.radians(ship.direction) + math.pi / 2)
-        b = ship.position.y - a * ship.position.x
+        b = math.fabs(max_height - ship.position.y) - a * math.fabs(max_width - ship.position.x)
         for planet in planet_candidates:
-            prox = abs(a * planet.coordinates.x - planet.coordinates.y + b) / math.sqrt((a ** 2) + 1)
-            if prox <= planet.radius and self.plausible_coords(ship.direction, ship.position, planet.coordinates):
+            prox = abs(a * math.fabs(max_width-planet.coordinates.x) - math.fabs(max_height-planet.coordinates.y) + b) / math.sqrt((a ** 2) + 1)
+            if prox <= (planet.radius + ship.radius) and self.plausible_coords(ship.direction, ship.position, planet.coordinates):
                 return True
         return False
 

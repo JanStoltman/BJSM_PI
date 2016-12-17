@@ -20,10 +20,10 @@ class FlightController:
         ship.position.y += movement_vector.Y
         temp_dir = RotationController().get_rotation(ship, ship.base_station.coordinates)
 
-        print(FrontScanner().will_collide(ship, planets_on_radar))
+        print(FrontScanner().will_collide(ship, planets_on_radar, max_width, max_height))
 
-        if FrontScanner().will_collide(ship, planets_on_radar):
-            direction, turn = self.rotation_control(ship, ship.base_station.coordinates, planets_on_radar)
+        if FrontScanner().will_collide(ship, planets_on_radar, max_width, max_height):
+            direction, turn = self.rotation_control(ship, ship.base_station.coordinates, planets_on_radar, max_width, max_height)
             if turn is None:
                 return movement_vector.X, movement_vector.Y, ship.speed, 0, ship.fuel
 
@@ -43,7 +43,7 @@ class FlightController:
 
         return movement_vector.X + movement_x, movement_vector.Y + movement_y, speed, temp_dir, ship.fuel - check
 
-    def rotation_control(self, ship, base_position, planets_on_radar):
+    def rotation_control(self, ship, base_position, planets_on_radar, max_width, max_height):
 
         ship2 = ship
 
@@ -53,11 +53,11 @@ class FlightController:
 
             direction = angle * begin
             ship2.direction = ship.direction + direction
-            if not FrontScanner().will_collide(ship2, planets_on_radar):
+            if not FrontScanner().will_collide(ship2, planets_on_radar, max_width, max_height):
                 return direction, turn
 
             ship2.direction = ship.direction - direction
-            if not FrontScanner().will_collide(ship2, planets_on_radar):
+            if not FrontScanner().will_collide(ship2, planets_on_radar, max_width, max_height):
                 return direction, turn
 
         return None, None

@@ -1,11 +1,10 @@
 import tkinter
 from tkinter import messagebox
+
 from PIL import Image, ImageTk
-from MainDick.GameController import GameController
+
 import MainDick.ImageLoader as ImL
-from MainDick.SpaceObjects.Planet import Planet
-from MainDick.SpaceObjects.Spacecraft import Spacecraft
-from MainDick.RotationController import RotationController
+from MainDick.GameController import GameController
 
 
 class ScreenController:
