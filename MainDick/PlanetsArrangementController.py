@@ -35,8 +35,8 @@ class PlanetsArrangementController:
 
             next_planet_radius = random.randint(min_radius, max_radius)
 
-            next_planet_coords = Point(random.randint(margin + next_planet_radius, max_width - margin - next_planet_radius),
-                                  random.randint(margin + next_planet_radius, max_height - margin - next_planet_radius))
+            next_planet_coords = Point(random.randint(margin + next_planet_radius, max_width - margin - next_planet_radius-400),
+                                  random.randint(margin + next_planet_radius, max_height - margin - next_planet_radius-400))
             loop_guardian = 0
 
             while not self.acceptable_coordinates(list_of_coords, next_planet_coords, minimal_distance):
