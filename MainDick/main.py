@@ -20,7 +20,7 @@ planets = PlanetsArrangementController().arrange_planets(number_of_planets=7,
 
 craft = Spacecraft(fuel=100, power=10, mass=10,
                    position=Point(screenController.width, screenController.height),
-                   image=ImL.get_destroyer_image(), name="Dupa", direction=180, radius = 35)
+                   image=ImL.get_destroyer_image(), name="Dupa", direction=180, radius = 35, speed=1)
 
 screenController.pack_canvas(planets, craft)
 screenController.show_screen()

@@ -33,3 +33,8 @@ def get_background_image():
 def get_space_station_image():
     script_dir = os.path.dirname(__file__)  # <-- absolute dir the script is in
     return [os.path.join(script_dir, "Images/station.png")]
+
+
+def get_explosion_gif():
+    script_dir = os.path.dirname(__file__)  # <-- absolute dir the script is in
+    return os.path.join(script_dir, "Images/explode.gif")

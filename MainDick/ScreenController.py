@@ -1,6 +1,7 @@
 import tkinter
 from PIL import Image, ImageTk
 from MainDick.GameController import GameController
+import MainDick.ImageLoader as ImL
 from MainDick.SpaceObjects.Planet import Planet
 from MainDick.SpaceObjects.Spacecraft import Spacecraft
 
@@ -54,7 +55,8 @@ class ScreenController:
         self.spacecraft.position.y += movement_tuple[1]
         self.rotate_spacecraft(movement_tuple[2])
         if GameController().is_dead(self.planets, self.spacecraft, self.width, self.height):
-            self.screen.quit()
+            self.canvas.delete(self.spacecraft_bitmap)
+            self.show_gif()
         else:
             self.canvas.after(100, self.move_spacecraft,
                               GameController.flight(self.planets, self.spacecraft, self.width, self.height))
@@ -75,3 +77,13 @@ class ScreenController:
     def set_background_image(self):
         self.background_filename = tkinter.PhotoImage(file=self.background)
         self.canvas.create_image(0, 0, image=self.background_filename, anchor="nw")
+
+    def show_gif(self,f=200):
+        try:
+            self.filename = tkinter.PhotoImage(file=ImL.get_explosion_gif(), format="gif -index {}".format(f))
+            self.spacecraft_bitmap = self.canvas.create_image(self.spacecraft.position.x, self.spacecraft.position.y,
+                                                              image=self.filename)
+            f += 1
+        except Exception:
+            f = 1
+        self.canvas.after(100, self.show_gif,f)
