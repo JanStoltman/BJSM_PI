@@ -18,6 +18,7 @@ class FlightController:
 
         ship.position.x += movement_vector.X
         ship.position.y += movement_vector.Y
+        temp_dir = RotationController().get_rotation(ship, planets[0].coordinates)
 
         if FrontScanner().will_collide(ship, planets_on_radar):
             direction, turn = self.rotation_control(ship, planets[0].position, planets_on_radar)
@@ -38,7 +39,7 @@ class FlightController:
 
         movement_x, movement_y, speed = self.accelerate(check, ship, tick)
 
-        return movement_x, movement_y, speed, 0, ship.fuel - check
+        return movement_vector.X + movement_x, movement_vector.Y + movement_y, speed, temp_dir, ship.fuel - check
 
     def rotation_control(self, ship, base_position, planets_on_radar):
 
@@ -63,6 +64,7 @@ class FlightController:
     def accelerate(self, unit, ship, tick):
 
         acceleration_vector = Vector(unit * math.sin(ship.direction), unit * math.cos(ship.direction))
-        movement_vector = acceleration_vector.multiply(tick ** 2 / 2)
+        scalar = int(tick ** 2 / 2) + 1
+        movement_vector = acceleration_vector.multiply(scalar)
 
         return movement_vector.X, movement_vector.Y, ship.speed + unit

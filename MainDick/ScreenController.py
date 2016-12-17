@@ -4,6 +4,7 @@ from MainDick.GameController import GameController
 import MainDick.ImageLoader as ImL
 from MainDick.SpaceObjects.Planet import Planet
 from MainDick.SpaceObjects.Spacecraft import Spacecraft
+from MainDick.RotationController import RotationController
 
 
 class ScreenController:
@@ -53,8 +54,8 @@ class ScreenController:
         self.canvas.move(self.spacecraft_bitmap, movement_tuple[0], movement_tuple[1])
         self.spacecraft.position.x += movement_tuple[0]
         self.spacecraft.position.y += movement_tuple[1]
-        self.rotate_spacecraft(movement_tuple[2])
-        self.spacecraft.speed = movement_tuple[3]
+        self.rotate_spacecraft(movement_tuple[3])
+        self.spacecraft.speed = movement_tuple[2]
         self.spacecraft.fuel = movement_tuple[4]
         if GameController().is_dead(self.planets, self.spacecraft, self.width, self.height):
             self.canvas.delete(self.spacecraft_bitmap)
