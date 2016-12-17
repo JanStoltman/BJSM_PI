@@ -3,7 +3,7 @@ from MainDick.Vector import Vector
 class ForceController:
 
     def gravity(self, ship, planet):
-        G = 6.67 * 10 ** -11
+        G = 6.67
         return G * planet.mass * ship.mass / ship.position.proximity(planet.coordinates) ** 2
 
 
