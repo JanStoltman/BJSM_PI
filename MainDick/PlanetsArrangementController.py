@@ -1,7 +1,7 @@
 from MainDick.SpaceObjects.Planet import Planet
 from MainDick.Point import Point
+from MainDick.ImageLoader import get_space_station_image
 import random
-import math
 
 
 class PlanetsArrangementController:
@@ -18,18 +18,15 @@ class PlanetsArrangementController:
         list_of_planets = []
         list_of_coords = []
 
-        if number_of_planets >= 1:
-            first_planet_radius = random.randint(min_radius, max_radius)
-            first_planet = Planet('planet0',
-                                  random.randint(min_mass, max_mass),
-                                  first_planet_radius,
-                                  Point(random.randint(margin + first_planet_radius,
-                                                  max_width - margin - first_planet_radius),
-                                   random.randint(margin + first_planet_radius,
-                                                  max_height - margin - first_planet_radius)),
-                                  image=random.choice(files_list))
+        space_station_radius = 50
+        space_station = Planet('space station', 0, space_station_radius,
+                                Point(random.randint(margin + space_station_radius,
+                                                  max_width - margin - space_station_radius),
+                                random.randint(margin + space_station_radius,
+                                                  max_height - margin - space_station_radius)),
+                                image=get_space_station_image())
 
-            list_of_planets.append(first_planet)
+        list_of_planets.append(space_station)
 
         for i in range(1, number_of_planets):
             list_of_coords.append(list_of_planets[-1].coordinates)
