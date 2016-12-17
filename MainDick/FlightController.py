@@ -4,6 +4,7 @@ from MainDick.FrontScanner import FrontScanner
 from MainDick.RotationController import RotationController
 from MainDick.Vector import Vector
 import math
+import random
 
 
 class FlightController:
@@ -15,12 +16,9 @@ class FlightController:
         movement_vector = ForceController().calculate_movement_vector(planets, ship)
         planets_on_radar = radarController.scan_for_planets(planets, radar_radius, ship.position, max_width, max_height)
 
-        print(planets_on_radar)
         ship.position.x += movement_vector.X
         ship.position.y += movement_vector.Y
         temp_dir = RotationController().get_rotation(ship, ship.base_station.coordinates)
-
-        print(FrontScanner().will_collide(ship, planets_on_radar, max_width, max_height))
 
         if FrontScanner().will_collide(ship, planets_on_radar, max_width, max_height):
             direction, turn = self.rotation_control(ship, ship.base_station.coordinates, planets_on_radar, max_width, max_height)
@@ -47,8 +45,8 @@ class FlightController:
 
         ship2 = ship
 
-        for turn, angle in enumerate(range(15, 31, 15)):
-            begin = 1 if RotationController().get_rotation(ship, base_position) > ship.direction else -1
+        for turn, angle in enumerate(range(10, 21, 10)):
+            begin = random.choice([1, -1])
             print(begin)
 
             direction = angle * begin

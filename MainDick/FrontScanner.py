@@ -1,13 +1,21 @@
 import math
+from MainDick.Vector import Vector
 
 
 class FrontScanner:
     def will_collide(self, ship, planet_candidates, max_width, max_height):
         for planet in planet_candidates:
-            if planet.mass > 0 and math.hypot(planet.coordinates.x - ship.position.x,
-                          planet.coordinates.y - ship.position.y) <= planet.radius + (ship.radius * (math.fabs(ship.speed) / 10 + 1)):
+            connecting_vector = self.from_points(ship.position, planet.coordinates)
+            tan = connecting_vector.X / connecting_vector.Y if connecting_vector.Y != 0 else 100000
+
+            print(connecting_vector.to_list(), tan)
+
+            if tan <= math.tan(math.radians(ship.direction)) + 0.5 and tan >= math.tan(math.radians(ship.direction)) - 0.5:
+
                 return True
+
         return False
+
 
     def plausible_coords(self, dir, ship_pos, planet_coords):
         if dir < 90:
@@ -18,3 +26,7 @@ class FrontScanner:
             return planet_coords.x < ship_pos.x and planet_coords.y >= ship_pos.y
         else:
             return planet_coords.x < ship_pos.x and planet_coords.y < ship_pos.y
+
+
+    def from_points(self, point1, point2):
+        return Vector(point2.x - point1.x, point2.y - point1.y)
