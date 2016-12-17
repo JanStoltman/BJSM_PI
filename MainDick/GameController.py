@@ -8,6 +8,8 @@ class GameController:
         ship.position.y = ship.position.y + 20
         ship.direction = (ship.direction + 10) % 360
 
+        return ship
+
 
     def is_dead(self, planets, ship):
 
