@@ -44,7 +44,7 @@ class ScreenController:
         self.height = self.screen.winfo_screenheight() -130
 
     def key(self, event):
-        self.spacecraft.fly(self.planets, [event]),
+        self.spacecraft.fly(self.planets, [event])
 
     def show_screen(self):
         self.screen.mainloop()

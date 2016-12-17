@@ -22,16 +22,16 @@ class Spacecraft:
         thrust_vector = (0, 0)
         direction_change = 0
 
-        if 'lt' in directions:
+        if 'W' in directions:
             direction_change += 5
 
-        if 'rt' in directions:
+        if 'A' in directions:
             direction_change -= 5
 
-        if 'fd' in directions:
+        if 'S' in directions:
             thrust_vector = thrust_vector.sum(self.vector_from_len_and_angle(self.power, self.direction))
 
-        if 'bk' in directions:
+        if 'D' in directions:
             thrust_vector = thrust_vector.sum(self.vector_from_len_and_angle(self.power / 2, self.direction + 180))
 
         movement_vector = gravity_vector.sum(thrust_vector)
