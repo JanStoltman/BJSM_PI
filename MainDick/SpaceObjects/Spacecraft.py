@@ -21,13 +21,24 @@ class Spacecraft:
         gravity_vector = ForceController().calculate_gravity_vector(planets, self)
 
         if direction == 'fd':
-            thrust_vector = Vector().from_len_and_angle(len, angle)
+            thrust_vector = Vector().from_len_and_angle(self.power, self.direction)
+            movement_vector = gravity_vector.sum(thrust_vector)
+
         elif direction == 'lt':
+            thrust_vector = Vector().from_len_and_angle(self.power, self.direction + 90)
+            movement_vector = gravity_vector.sum(thrust_vector)
 
         elif direction == 'rt':
+            thrust_vector = Vector().from_len_and_angle(self.power, self.direction - 90)
+            movement_vector = gravity_vector.sum(thrust_vector)
 
         else:
-            raise ValueError('Wrong direction')
+            movement_vector = gravity_vector
+
+        self.position.x += movement_vector.X
+        self.position.y += movement_vector.Y
+
+        return movement_vector
 
 
 
