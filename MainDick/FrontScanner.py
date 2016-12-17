@@ -14,13 +14,13 @@ class FrontScanner:
 
     def plausible_coords(self, dir, ship_pos, planet_coords):
         if dir < 90:
-            return planet_coords.x > ship_pos.x and planet_coords.y > planet_coords.y
+            return planet_coords.x < ship_pos.x and planet_coords.y < planet_coords.y
         elif dir >= 90 and dir < 180:
-            return planet_coords.x <= ship_pos.x and planet_coords.y > planet_coords.y
+            return planet_coords.x >= ship_pos.x and planet_coords.y < planet_coords.y
         elif dir >= 180 and dir < 270:
-            return planet_coords.x <= ship_pos.x and planet_coords.y <= planet_coords.y
+            return planet_coords.x >= ship_pos.x and planet_coords.y >= planet_coords.y
         else:
-            return planet_coords.x > ship_pos.x and planet_coords.y <= planet_coords.y
+            return planet_coords.x < ship_pos.x and planet_coords.y >= planet_coords.y
 
 
 
