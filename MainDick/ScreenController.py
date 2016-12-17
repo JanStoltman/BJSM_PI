@@ -57,6 +57,8 @@ class ScreenController:
         self.spacecraft.fuel = self.pal.get()
         self.spacecraft.direction = self.kat.get()
         self.spacecraft.speed = self.szybkosc.get()
+        self.canvas.delete(self.spacecraft)
+        self.add_spacecraft(self.spacecraft)
 
     def add_planet(self, planets):
         self.planets = planets
@@ -83,6 +85,8 @@ class ScreenController:
             self.screen.destroy()
         elif GameController().has_won(spacecraft=self.spacecraft,planets=self.planets):
             self.show_won()
+        else:
+            self.canvas.after(100,self.move_spacecraft,self.spacecraft.fly(self.planets,None))
 
     def rotate_spacecraft(self, direction):
         self.spacecraft_image = Image.open(self.spacecraft.image)
