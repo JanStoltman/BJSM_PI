@@ -2,7 +2,6 @@ from MainDick.ScreenController import ScreenController
 from MainDick.SpaceObjects.Spacecraft import Spacecraft
 from MainDick.PlanetsArrangementController import PlanetsArrangementController
 from MainDick.Point import Point
-from MainDick.SpaceObjects.Planet import Planet
 
 import MainDick.ImageLoader as ImL
 
@@ -17,8 +16,6 @@ planets = PlanetsArrangementController().arrange_planets(number_of_planets=8,
                                                          max_width=screenController.width,
                                                          margin=10,
                                                          files_list=ImL.get_planet_images())
-
-base_station = planets[0]
 
 craft = Spacecraft(fuel=100, power=20, mass=10,
                    position=Point(screenController.width - 50, screenController.height - 50),
