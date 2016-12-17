@@ -36,15 +36,18 @@ class ScreenController:
         self.st = tkinter.Button(self.screen, text="Start", command=self.start_sim)
         self.st.grid(row=0, column=5)
 
-        self.canvas = tkinter.Canvas(self.screen, bg="black", height=self.height-130, width=self.width-60)
-        self.canvas.bind("<Key>", self.key)
-        self.screen.bind("<Key>", self.key)
+        self.canvas = tkinter.Canvas(self.screen, bg="black", height=self.height - 130, width=self.width - 60)
 
-        self.width = self.screen.winfo_screenwidth()-60
-        self.height = self.screen.winfo_screenheight() -130
+        self.canvas.bind("<Key>", self.key)
+        self.canvas.focus_set()
+        self.screen.bind("<Key>", self.key)
+        self.screen.focus_set()
+
+        self.width = self.screen.winfo_screenwidth() - 60
+        self.height = self.screen.winfo_screenheight() - 130
 
     def key(self, event):
-        self.spacecraft.fly(self.planets, [event])
+        self.move_spacecraft(self.spacecraft.fly(self.planets, event))
 
     def show_screen(self):
         self.screen.mainloop()
@@ -54,7 +57,6 @@ class ScreenController:
         self.spacecraft.fuel = self.pal.get()
         self.spacecraft.direction = self.kat.get()
         self.spacecraft.speed = self.szybkosc.get()
-        self.move_spacecraft(GameController.flight(self.planets, self.spacecraft, self.width, self.height))
 
     def add_planet(self, planets):
         self.planets = planets
@@ -81,9 +83,6 @@ class ScreenController:
             self.screen.destroy()
         elif GameController().has_won(spacecraft=self.spacecraft):
             self.show_won()
-        else:
-            self.canvas.after(100, self.move_spacecraft,
-                              GameController.flight(self.planets, self.spacecraft, self.width, self.height))
 
     def rotate_spacecraft(self, direction):
         self.spacecraft_image = Image.open(self.spacecraft.image)
