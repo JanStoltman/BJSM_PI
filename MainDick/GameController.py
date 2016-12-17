@@ -25,9 +25,9 @@ class GameController:
     def crashed(self, planets, spacecraft):
 
         for planet in planets:
-            if self.reached_destination(spacecraft, planet):
+            if self.reached_destination(spacecraft, planet) and planet.mass > 0:
                 return True
         return False
 
-    def has_won(self, planets, spacecraft):
+    def has_won(self, spacecraft):
         return self.reached_destination(spacecraft, spacecraft.base_station)
