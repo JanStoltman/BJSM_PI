@@ -17,10 +17,10 @@ planets = PlanetsArrangementController().arrange_planets(number_of_planets=8,
                                                          margin=10,
                                                          files_list=ImL.get_planet_images())
 
-craft = Spacecraft(fuel=100, power=20, mass=10,
+craft = Spacecraft(power=20, mass=10,
                    position=Point(screenController.width - 50, screenController.height - 50),
                    image=ImL.get_destroyer_image(),
-                   base_station=base_station, name="Dupa", direction=180, radius=35, speed=-10)
+                   name="Dupa", direction=180, radius=35)
 
 screenController.pack_canvas(planets, craft)
 planets = planets[1:]
