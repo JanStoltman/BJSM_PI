@@ -12,7 +12,6 @@ class FrontScanner:
                 return True
         return False
 
-
     def plausible_coords(self, dir, ship_pos, planet_coords):
         if dir < 90:
             return planet_coords.x > ship_pos.x and planet_coords.y > planet_coords.y
