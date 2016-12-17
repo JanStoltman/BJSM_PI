@@ -12,23 +12,25 @@ class PlanetsArrangementController:
                         max_width, max_height,
                         margin):
 
-        if max_width < 2 * margin or max_height < 2 * margin:
-            raise ValueError('Too big margin value')
+        space_station_radius = 50
+
+        if max_width < 2 * margin + space_station_radius or  max_height < 2 * margin + space_station_radius:
+            raise ValueError('Not enough space')
+
 
         list_of_planets = []
         list_of_coords = []
 
-        space_station_radius = 50
         space_station = Planet('space station', 0, space_station_radius,
                                 Point(random.randint(margin + space_station_radius,
-                                                  max_width - margin - space_station_radius),
+                                                  int(max_width / 3) - space_station_radius),
                                 random.randint(margin + space_station_radius,
-                                                  max_height - margin - space_station_radius)),
+                                                  int(max_height / 3) - space_station_radius)),
                                 image=get_space_station_image())
 
         list_of_planets.append(space_station)
 
-        for i in range(1, number_of_planets):
+        for i in range(number_of_planets):
             list_of_coords.append(list_of_planets[-1].coordinates)
 
             next_planet_radius = random.randint(min_radius, max_radius)
