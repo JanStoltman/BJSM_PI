@@ -18,10 +18,10 @@ class FlightController:
 
         ship.position.x += movement_vector.X
         ship.position.y += movement_vector.Y
-        temp_dir = RotationController().get_rotation(ship, planets[0].coordinates)
+        temp_dir = RotationController().get_rotation(ship, ship.base_station.coordinates)
 
         if FrontScanner().will_collide(ship, planets_on_radar):
-            direction, turn = self.rotation_control(ship, planets[0].position, planets_on_radar)
+            direction, turn = self.rotation_control(ship, ship.base_station.coordinates, planets_on_radar)
             if turn is None:
                 return movement_vector.X, movement_vector.Y, ship.speed, 0, ship.fuel
 
