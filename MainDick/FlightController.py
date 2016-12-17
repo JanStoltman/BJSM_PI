@@ -33,7 +33,7 @@ class FlightController:
 
         check = 0
 
-        while radarController.scan_for_planets(planets, int(radar_radius / (5 + 2 * check)), ship.position.x,
+        while radarController.scan_for_planets(planets, int(radar_radius / (5 + 2 * check)), ship.position,
                                                max_width, max_height) and ship.fuel - check >= 0:
             check += 1
 
