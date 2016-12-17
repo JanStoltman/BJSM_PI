@@ -69,9 +69,7 @@ class ScreenController:
 
     def move_spacecraft(self, movement_tuple):
         self.canvas.move(self.spacecraft_bitmap, movement_tuple[0], movement_tuple[1])
-        self.spacecraft.position.x += movement_tuple[0]
-        self.spacecraft.position.y += movement_tuple[1]
-        self.rotate_spacecraft(movement_tuple[3])
+        self.rotate_spacecraft(movement_tuple[2])
         if GameController().is_dead(self.planets, self.spacecraft, self.width, self.height):
             self.canvas.delete(self.spacecraft_bitmap)
             self.show_gif()

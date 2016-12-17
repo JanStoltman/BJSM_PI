@@ -20,12 +20,13 @@ class Spacecraft:
 
         gravity_vector = ForceController().calculate_gravity_vector(planets, self)
         thrust_vector = (0, 0)
+        direction_change = 0
 
         if 'lt' in directions:
-            self.direction += 5
+            direction_change += 5
 
         if 'rt' in directions:
-            self.direction -= 5
+            direction_change -= 5
 
         if 'fd' in directions:
             thrust_vector = thrust_vector.sum(self.vector_from_len_and_angle(self.power, self.direction))
@@ -37,8 +38,9 @@ class Spacecraft:
 
         self.position.x += movement_vector.X
         self.position.y += movement_vector.Y
+        self.direction += direction_change
 
-        return movement_vector.to_list()
+        return movement_vector.to_list()[0], movement_vector.to_list()[1], direction_change
 
 
     def vector_from_len_and_angle(self, len, angle):
