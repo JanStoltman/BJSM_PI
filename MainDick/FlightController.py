@@ -31,7 +31,7 @@ class FlightController:
             else:
                 return movement_vector.X, movement_vector.Y, ship.speed, 0, ship.fuel
 
-        check = 0
+        check = 1
 
         while radarController.scan_for_planets(planets, int(radar_radius / (5 + 2 * check)), ship.position.x,
                                              ship.position.y, max_width, max_height) and ship.fuel - check >= 0:
@@ -45,7 +45,7 @@ class FlightController:
 
         ship2 = ship
 
-        for turn, angle in enumerate(range(15, 61, 15)):
+        for turn, angle in enumerate(range(15, 31, 15)):
             begin = 1 if RotationController().get_rotation(ship, base_position) > ship.direction else -1
 
             direction = angle * begin
