@@ -49,7 +49,7 @@ class PlanetsArrangementController:
                                  random.randint(min_mass, max_mass),
                                  next_planet_radius,
                                  next_planet_coords,
-                                 image=random.choice(files_list))
+                                 image=files_list[i%10])
 
             list_of_planets.append(next_planet)
 
