@@ -38,8 +38,6 @@ class ScreenController:
 
         self.canvas = tkinter.Canvas(self.screen, bg="black", height=self.height - 130, width=self.width - 60)
 
-        self.canvas.bind("<Key>", self.key)
-        self.canvas.focus_set()
         self.screen.bind("<Key>", self.key)
         self.screen.focus_set()
 
@@ -77,16 +75,18 @@ class ScreenController:
                                                           image=self.filename)
 
     def move_spacecraft(self, movement_tuple):
-        self.canvas.move(self.spacecraft_bitmap, movement_tuple[0], movement_tuple[1])
+        self.canvas.delete(self.spacecraft)
+        self.spacecraft.position.x += movement_tuple[0]
+        self.spacecraft.position.y += movement_tuple[1]
+        self.add_spacecraft(spacecraft=self.spacecraft)
         self.rotate_spacecraft(movement_tuple[2])
         if GameController().is_dead(self.planets, self.spacecraft, self.width, self.height):
             self.canvas.delete(self.spacecraft_bitmap)
             self.show_gif()
             self.screen.destroy()
-        elif GameController().has_won(spacecraft=self.spacecraft,planets=self.planets):
+        elif GameController().has_won(spacecraft=self.spacecraft, planets=self.planets):
             self.show_won()
-        else:
-            self.canvas.after(100,self.move_spacecraft,self.spacecraft.fly(self.planets,None))
+      
 
     def rotate_spacecraft(self, direction):
         self.spacecraft_image = Image.open(self.spacecraft.image)
