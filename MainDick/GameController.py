@@ -28,3 +28,6 @@ class GameController:
             if self.reached_destination(spacecraft, planet):
                 return True
         return False
+
+    def has_won(self, planets, spacecraft):
+        return self.reached_destination(spacecraft, planets[0])
