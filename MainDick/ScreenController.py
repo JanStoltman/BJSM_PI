@@ -33,6 +33,7 @@ class ScreenController:
         self.screen.mainloop()
 
     def add_planet(self, planets):
+        self.planets = planets
         for p in planets:
             x = p.coordinates.x
             y = p.coordinates.y
@@ -52,8 +53,11 @@ class ScreenController:
         self.spacecraft.position.x += movement_tuple[0]
         self.spacecraft.position.y += movement_tuple[1]
         self.rotate_spacecraft(movement_tuple[2])
-        self.canvas.after(100, self.move_spacecraft,
-                          GameController.flight(self.planets, self.spacecraft, self.width, self.height))
+        if GameController().is_dead(self.planets, self.spacecraft, self.width, self.height):
+            self.screen.quit()
+        else:
+            self.canvas.after(100, self.move_spacecraft,
+                              GameController.flight(self.planets, self.spacecraft, self.width, self.height))
 
     def rotate_spacecraft(self, direction):
         self.spacecraft_image = Image.open(self.spacecraft.image)

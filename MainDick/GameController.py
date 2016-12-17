@@ -8,23 +8,23 @@ class GameController:
 
         return (x, y, z)
 
-    def is_dead(self, planets, ship):
+    def is_dead(self, planets, ship, max_x, max_y):
 
-        return self.is_out_of_space(ship.position) or self.crashed(planets, ship.position)
+        return self.is_out_of_space(ship.position, max_x=max_x, max_y=max_y) or self.crashed(planets, ship)
 
     @staticmethod
-    def reached_destination(ship_position, destination):
+    def reached_destination(spacecraft, destination):
 
-        return ship_position.proximity(destination.coordinates) <= destination.radius
+        return spacecraft.position.proximity(destination.coordinates) - spacecraft.radius <= destination.radius
 
     @staticmethod
     def is_out_of_space(ship_position, max_x, max_y):
 
         return not ship_position.x in range(0, max_x) and ship_position.y in range(0, max_y)
 
-    def crashed(self, planets, ship_position):
+    def crashed(self, planets, spacecraft):
 
         for planet in planets:
-            if self.reached_destination(ship_position, planet):
+            if self.reached_destination(spacecraft, planet):
                 return True
         return False
